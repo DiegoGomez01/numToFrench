@@ -1,4 +1,4 @@
-const arrayBase = ['zero', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze', 'seize', 'dix-sept', 'dix-huit', 'dix-neuf'];
+const arrayBase = ['zéro', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze', 'seize', 'dix-sept', 'dix-huit', 'dix-neuf'];
 const arrayTen = ['vingt', 'trente', 'quarante', 'cinquante', 'soixante', 'soixante-dix', 'quatre-vingt', 'quatre-vingt-dix'];
 
 const objectDivisions = {
@@ -37,6 +37,11 @@ function convertNumberToFrench(number){
       return `${leftValue}${key}${rightValue}`;
     }
   }
+  // Numbers Between 71 and 79
+  if (number >= 71 && number <= 79) {
+    const remainder = number-60;
+    return `${arrayTen[4]}-${arrayBase[remainder]}`;
+  }
   // Number Between 20 and 99
   const quotient = Math.floor(number / 10);
   const remainder = number % 10;
@@ -46,7 +51,7 @@ function convertNumberToFrench(number){
 
 function conditionsRightValue(number, separator, base=''){
   let valueToReturn = '';
-  if (number !== 'zero') {
+  if (number !== 'zéro') {
     valueToReturn = `${separator}${number}`;
   }
   if (number === 'un' && base === 'dix') {
