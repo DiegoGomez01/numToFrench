@@ -19,30 +19,37 @@ numbersToConvert.forEach(number => {
 console.log(result);
 
 function convertNumberToFrench(number){
+  // If the number is less than 20, directly retrieve the corresponding word from arrayBase
   if(number < 20) {
     return arrayBase[number];
   }
   let leftValue = '';
   let rightValue = '';
   for (const [key, value] of Object.entries(objectDivisions)) {
+    // If the division is applicable, that's means the number is a milliard, million, mille or cent
     if (Math.floor(number / value) >= 1) {
       const divisionResult = Math.floor(number / value);
       const divisionRest = number % value;
+      // Recursively call itself for the left side of the number
       leftValue = `${convertNumberToFrench(divisionResult)} `;
+
+      // Remove the left value if it's 'un'
       if(leftValue === 'un ') {
         leftValue = '';
       }
+
+      // Recursively call itself for the right side of the number
       rightValue = convertNumberToFrench(divisionRest);
       rightValue = conditionsRightValue(rightValue, ' ')
       return `${leftValue}${key}${rightValue}`;
     }
   }
-  // Numbers Between 71 and 79
+  // Conditions for numbers between 71 and 79
   if (number >= 71 && number <= 79) {
     const remainder = number-60;
     return `${arrayTen[4]}-${arrayBase[remainder]}`;
   }
-  // Number Between 20 and 99
+  // Operations for number between 20 and 99
   const quotient = Math.floor(number / 10);
   const remainder = number % 10;
   rightValue = conditionsRightValue(arrayBase[remainder], '-', 'dix')
